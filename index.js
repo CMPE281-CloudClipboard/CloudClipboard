@@ -1,14 +1,14 @@
 const {app, Menu, Tray, BrowserWindow, clipboard, globalShortcut,window} = require('electron');
 
 
-app.on('ready', () => {
-const win = new BrowserWindow({width: 800, height: 600, center:true,titleBarStyle: 'hidden',frame: false,titleBarStyle: 'hidden',show:false})
+app.on('ready', function(){
+const win = new BrowserWindow({width: 800, height: 600, center:true,titleBarStyle: 'hidden',frame: true,titleBarStyle: 'hidden',show:false})
 const tray = new Tray('node-changed.png')
 
-win.loadURL('http://localhost:3000');
+win.loadURL('./views/login.html');
 
 
-tray.on('click', () => {
+tray.on('click', function() {
    win.isVisible() ? win.hide() : win.show()
 })
 win.on('show', () => {
@@ -19,4 +19,3 @@ win.on('hide', () => {
 })
 
 });
-
