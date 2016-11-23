@@ -1,3 +1,28 @@
+"use strict";
+
+var express = require('express');
+var expApp = express();
+var http = require('http').Server(expApp);
+var path = require('path');
+var bodyParser = require('body-parser');
+
+// all environments
+expApp.set('port', process.env.PORT || 3000);
+expApp.set('views', __dirname + '/views');
+expApp.set('view engine', 'ejs');
+expApp.use(bodyParser.urlencoded({ extended: true }));
+expApp.use(bodyParser.json());
+expApp.use(express.static(path.join(__dirname, 'public')));
+
+//----------------ROUTES--------------------------//
+require("./routes/test.js")(expApp);
+
+http.listen(expApp.get('port'), function(){
+	console.log('Node-Server listening on port ' + expApp.get('port'));
+});
+
+
+//------------------Electron-------------------------------------------//
 const {app, Menu, Tray, BrowserWindow, clipboard, globalShortcut,window} = require('electron');
 
 
@@ -5,7 +30,7 @@ app.on('ready', function(){
 const win = new BrowserWindow({width: 800, height: 600, center:true,titleBarStyle: 'hidden',frame: true,titleBarStyle: 'hidden',show:false})
 const tray = new Tray('node-changed.png')
 
-win.loadURL('./views/login.html');
+win.loadURL('http://localhost:3000/');
 
 
 tray.on('click', function() {
@@ -18,26 +43,4 @@ win.on('hide', () => {
   tray.setHighlightMode('never')
 })
 
-});
-
-
-var express = require('express')
-	,expressApp = express()
-  , http = require('http').Server(expressApp)
-  , path = require('path')
-  , test = require("./routes/test");
-var bodyParser = require('body-parser');
-// all environments
-expressApp.set('port', process.env.PORT || 3000);
-expressApp.set('views', __dirname + '/views');
-expressApp.set('view engine', 'ejs');
-expressApp.use(bodyParser.urlencoded({ extended: false }));
-expressApp.use(bodyParser.json());
-expressApp.use(express.static(path.join(__dirname, 'public')));
-
-
-expressApp.get('/test', test.basicTesting);
-
-http.listen(expressApp.get('port'), function(){
-	console.log('AmazonFresh Node-Server listening on port ' + expressApp.get('port'));
 });

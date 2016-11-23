@@ -1,6 +1,7 @@
+"use strict";
 
-exports.basicTesting = function(req,res)
-{
-	console.log("reached here");
-	res.end();
-}
+module.exports = function(app){
+  app.get('/', function(req, res){
+    res.render('login', {});
+  });
+};
