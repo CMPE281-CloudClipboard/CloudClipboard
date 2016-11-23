@@ -19,3 +19,25 @@ win.on('hide', () => {
 })
 
 });
+
+
+var express = require('express')
+	,expressApp = express()
+  , http = require('http').Server(expressApp)
+  , path = require('path')
+  , test = require("./routes/test");
+var bodyParser = require('body-parser');
+// all environments
+expressApp.set('port', process.env.PORT || 3000);
+expressApp.set('views', __dirname + '/views');
+expressApp.set('view engine', 'ejs');
+expressApp.use(bodyParser.urlencoded({ extended: false }));
+expressApp.use(bodyParser.json());
+expressApp.use(express.static(path.join(__dirname, 'public')));
+
+
+expressApp.get('/test', test.basicTesting);
+
+http.listen(expressApp.get('port'), function(){
+	console.log('AmazonFresh Node-Server listening on port ' + expressApp.get('port'));
+});
