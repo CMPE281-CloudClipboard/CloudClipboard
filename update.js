@@ -2,8 +2,8 @@ var AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
-  accessKeyId: 'AKIAIYGGV5YVEKAFYQQA',  // can omit access key and secret key 
-  secretAccessKey: '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'
+  accessKeyId: '',  // can omit access key and secret key 
+  secretAccessKey: ''
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient()
