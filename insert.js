@@ -13,8 +13,8 @@ var AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
-  accessKeyId: 'AKIAIYGGV5YVEKAFYQQA',  // can omit access key and secret key 
-  secretAccessKey: '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'
+  accessKeyId: '',  // can omit access key and secret key 
+  secretAccessKey: ''
  // endpoint: "arn:aws:dynamodb:us-west-2:823146787824:table/Users"
 });
 //AWS.config = awsConfig();
