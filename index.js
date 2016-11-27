@@ -15,7 +15,7 @@ expApp.use(bodyParser.json());
 expApp.use(express.static(path.join(__dirname, 'public')));
 
 //----------------ROUTES--------------------------//
-require("./routes/route.js")(expApp);
+//require("./routes/route.js")(expApp);
 
 http.listen(expApp.get('port'), function(){
 	console.log('Node-Server listening on port ' + expApp.get('port'));
@@ -30,6 +30,28 @@ const win = new BrowserWindow({width: 450, height: 700, center:true,titleBarStyl
 const tray = new Tray('node-changed.png')
 
 win.loadURL('http://localhost:3000/login/');
+
+// This is code for Copy paste
+  const copy = globalShortcut.register('CommandOrControl+Shift+C', () => {
+    console.log('CommandOrControl+C is pressed');
+    var temp = clipboard.readText();
+    console.log(temp);
+    // Code to sync things goes here
+  });
+
+// This is code for Copy paste
+  const cut = globalShortcut.register('CommandOrControl+Shift+X', () => {
+    console.log('CommandOrControl+X is pressed');
+    // Code to sync things goes here
+  }); 
+
+// This is code for Copy paste
+  const paste = globalShortcut.register('CommandOrControl+Shift+V', () => {
+    console.log('CommandOrControl+V is pressed');
+    // Code to sync things goes here
+  });  
+
+
 
 
 tray.on('click', function() {
