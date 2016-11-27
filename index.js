@@ -31,6 +31,28 @@ const tray = new Tray('node-changed.png')
 
 win.loadURL('http://localhost:3000/login/');
 
+// This is code for Copy paste
+  const copy = globalShortcut.register('CommandOrControl+Shift+C', () => {
+    console.log('CommandOrControl+C is pressed');
+    var temp = clipboard.readText();
+    console.log(temp);
+    // Code to sync things goes here
+  });
+
+// This is code for Copy paste
+  const cut = globalShortcut.register('CommandOrControl+Shift+X', () => {
+    console.log('CommandOrControl+X is pressed');
+    // Code to sync things goes here
+  }); 
+
+// This is code for Copy paste
+  const paste = globalShortcut.register('CommandOrControl+Shift+V', () => {
+    console.log('CommandOrControl+V is pressed');
+    // Code to sync things goes here
+  });  
+
+
+
 
 tray.on('click', function() {
    win.isVisible() ? win.hide() : win.show()
