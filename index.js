@@ -15,7 +15,7 @@ expApp.use(bodyParser.json());
 expApp.use(express.static(path.join(__dirname, 'public')));
 
 //----------------ROUTES--------------------------//
-//require("./routes/route.js")(expApp);
+require("./routes/route.js")(expApp);
 
 http.listen(expApp.get('port'), function(){
 	console.log('Node-Server listening on port ' + expApp.get('port'));
