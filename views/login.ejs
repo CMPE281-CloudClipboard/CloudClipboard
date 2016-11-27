@@ -18,7 +18,7 @@
 
   </head>
   <body>
-    <div ng-app="MyApp" ng-controller="AppCtrl" layout="column" layout-align="center center" layout-fill="layout-fill">
+    <div ng-app="LoginApp" ng-controller="LoginCtrl" layout="column" layout-align="center center" layout-fill="layout-fill">
       <div layout="column" class="loginBox md-whiteframe-z1">
         <md-toolbar>
           <h2 class="md-toolbar-tools"><span>Login</span></h2>
@@ -36,7 +36,7 @@
             <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
             <div flex="flex"></div>
             <md-button href="" md-no-ink="md-no-ink">Forgot Password</md-button>
-            
+
           </div>
           <md-input-container>
             <div ng-hide="invalidLogin" style=""><center><strong>Incorrect username or password</strong></center></div>
