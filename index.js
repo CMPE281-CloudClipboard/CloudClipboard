@@ -15,7 +15,7 @@ expApp.use(bodyParser.json());
 expApp.use(express.static(path.join(__dirname, 'public')));
 
 //----------------ROUTES--------------------------//
-require("./routes/test.js")(expApp);
+require("./routes/route.js")(expApp);
 
 http.listen(expApp.get('port'), function(){
 	console.log('Node-Server listening on port ' + expApp.get('port'));
@@ -24,7 +24,6 @@ http.listen(expApp.get('port'), function(){
 
 //------------------Electron-------------------------------------------//
 const {app, Menu, Tray, BrowserWindow, clipboard, globalShortcut,window} = require('electron');
-
 
 app.on('ready', function(){
 const win = new BrowserWindow({width: 450, height: 700, center:true,titleBarStyle: 'hidden',frame: true,titleBarStyle: 'hidden',show:false})

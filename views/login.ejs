@@ -33,10 +33,14 @@
             <input type="password" ng-model="password"/>
           </md-input-container>
           <div layout="row" layout-align="center center" style="padding-top:20px;">
-            <md-button class="md-raised md-primary">Login</md-button>
+            <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
             <div flex="flex"></div>
             <md-button href="" md-no-ink="md-no-ink">Forgot Password</md-button>
+            
           </div>
+          <md-input-container>
+            <div ng-hide="invalidLogin" style=""><center><strong>Incorrect username or password</strong></center></div>
+          </md-input-container>
         </md-content>
       </div>
     </div>
