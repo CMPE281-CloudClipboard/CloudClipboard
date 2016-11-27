@@ -29,7 +29,7 @@ app.on('ready', function(){
 const win = new BrowserWindow({width: 450, height: 700, center:true,titleBarStyle: 'hidden',frame: true,titleBarStyle: 'hidden',show:false})
 const tray = new Tray('node-changed.png')
 
-win.loadURL('http://localhost:3000/');
+win.loadURL('http://localhost:3000/login/');
 
 
 tray.on('click', function() {
