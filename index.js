@@ -27,7 +27,7 @@ const {app, Menu, Tray, BrowserWindow, clipboard, globalShortcut,window} = requi
 
 
 app.on('ready', function(){
-const win = new BrowserWindow({width: 800, height: 600, center:true,titleBarStyle: 'hidden',frame: true,titleBarStyle: 'hidden',show:false})
+const win = new BrowserWindow({width: 450, height: 700, center:true,titleBarStyle: 'hidden',frame: true,titleBarStyle: 'hidden',show:false})
 const tray = new Tray('node-changed.png')
 
 win.loadURL('http://localhost:3000/');
