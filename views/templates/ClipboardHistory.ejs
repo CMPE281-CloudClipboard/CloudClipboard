@@ -16,7 +16,26 @@
                 </center>
               </div>
               <div class="row no-padding no-margin">
-                <center><a ng-click="copyToClipboard()"><span class="glyphicon glyphicon-copy pull-right"></span></a></center>
+                <button class="btn btn-sm pull-right" data-clipboard-text="text1"><img src="images/clippy.svg"></img></button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-xs-9">
+              <h4 class="no-padding no-margin">Basic panel example</h4>
+              <h6>2 mins</h6>
+            </div>
+            <div class="col-xs-3">
+              <div class="row no-padding no-margin">
+                <center>
+                  <a ng-click="clickDelete()"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                  <a ng-click="clickFavourite()"><span class="glyphicon pull-right" ng-class="favClass"></span></a>
+                </center>
+              </div>
+              <div class="row no-padding no-margin">
+                <button class="btn btn-sm pull-right" data-clipboard-text="text2"><img src="images/clippy.svg"></img></button>
               </div>
             </div>
           </div>
