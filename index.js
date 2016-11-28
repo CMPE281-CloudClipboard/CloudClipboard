@@ -26,7 +26,7 @@ http.listen(expApp.get('port'), function(){
 	console.log('Node-Server listening on port ' + expApp.get('port'));
 });
 
-var copyCtrl = require('./controllers/copyCtrl');
+var copypasteCtrl = require('./controllers/copyPasteCtrl');
 //------------------Electron-------------------------------------------//
 const {app, Menu, Tray, BrowserWindow, clipboard, globalShortcut,window} = require('electron');
 
@@ -40,7 +40,7 @@ win.loadURL('http://localhost:3000/login/');
   const copy = globalShortcut.register('CommandOrControl+Shift+C', () => {
     console.log('CommandOrControl+C is pressed');
     var temp = clipboard.readText();
-    copyCtrl.copyClipboard(temp);
+    copypasteCtrl.copyClipboard(temp);
 
     // Code to sync things goes here
   });
@@ -54,6 +54,7 @@ win.loadURL('http://localhost:3000/login/');
 // This is code for Copy paste
   const paste = globalShortcut.register('CommandOrControl+Shift+V', () => {
     console.log('CommandOrControl+V is pressed');
+    
     // Code to sync things goes here
   });  
 
