@@ -1,6 +1,6 @@
 var AWS = require('aws-sdk'); 
 var util = require('util');
-var key = require('./key');
+var key = require('./key-AWS');
 var config = require('./configs/config.json');
 
 //configure AWS
@@ -18,33 +18,27 @@ var receiveMessageParams = {
 };
 
 function getMessages() {
-	sqs.receiveMessage(receiveMessageParams, receiveMessageCallback);
-}
-
-function receiveMessageCallback(err, data) {
-	//console.log(data);
-	if (data && data.Messages && data.Messages.length > 0) {
-		for (var i=0; i < data.Messages.length; i++) {
-			process.stdout.write(".");
-			console.log(data.Messages[i]);
-			//console.log("do something with the message here...");
-			// Delete the message when we've successfully processed it
-			/*var deleteMessageParams = {
-	        	QueueUrl: config.QueueUrl,
-	        	ReceiptHandle: data.Messages[i].ReceiptHandle
-	      	};
-	      	sqs.deleteMessage(deleteMessageParams, deleteMessageCallback);*/
+	sqs.receiveMessage(receiveMessageParams, function(err, data) {
+		if (data && data.Messages && data.Messages.length > 0) {
+			for (var i=0; i < data.Messages.length; i++) {
+				console.log("Message "+i+1+" "+data.Messages[i]);
+				//console.log("do something with the message here...");
+				// Delete the message when we've successfully processed it
+				/*var deleteMessageParams = {
+		        	QueueUrl: config.QueueUrl,
+		        	ReceiptHandle: data.Messages[i].ReceiptHandle
+		      	};
+		      	sqs.deleteMessage(deleteMessageParams, function(err, data) {
+				  	//console.log("deleted message");
+				  	//console.log(data);
+				});*/
+			}
+			getMessages();
+		}else{
+			console.log("Waiting..");
+			setTimeout(getMessages, 100);
 		}
-		getMessages();
-	}else{
-		process.stdout.write("-");
-		setTimeout(getMessages(), 100);
-	}
+	});
 }
 
-/*function deleteMessageCallback(err, data) {
-  	//console.log("deleted message");
-  	//console.log(data);
-}*/
-
-setTimeout(getMessages(), 100);
+setTimeout(getMessages, 100);
