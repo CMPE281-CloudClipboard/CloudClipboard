@@ -17,6 +17,7 @@
     "electron": "1.4.8"
   },
   "dependencies": {
-    "amqp": "^0.2.6"
+    "amqp": "^0.2.6",
+    "client-sessions": "^0.7.0"
   }
 }
