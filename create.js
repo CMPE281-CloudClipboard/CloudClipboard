@@ -1,8 +1,7 @@
 var AWS = require('aws-sdk'); 
 var util = require('util');
 var fs = require('fs');
-var async = require('async');
-var key = require('./key');
+var key = require('./key-AWS');
 
 //configure AWS
 AWS.config.update({
@@ -117,4 +116,3 @@ function writeConfigFile(config, callback) {
     callback();
   }); 
 }
-//async.series([createTopic, createQueue, getQueueAttr, snsSubscribe, setQueueAttr, writeConfigFile]);

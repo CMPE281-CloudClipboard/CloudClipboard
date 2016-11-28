@@ -3,6 +3,7 @@ var mq_client = require('../rpc/client');
 //var sqs_sns_inititate = require('../create');
 //var config = {};
 var sqs_sns_publish = require('../publish');
+var sqs_sns_consume = require('../consume');
 exports.email;
 
 exports.copyClipboard = function(copiedText){
@@ -18,6 +19,7 @@ exports.copyClipboard = function(copiedText){
 			console.log("Message has been successfully published");
 		}
     });
+	sqs_sns_consume.getMessages();
 	/*sqs_sns_inititate.createTopic(this.email, function (err, results) {
         if(err)
 		{

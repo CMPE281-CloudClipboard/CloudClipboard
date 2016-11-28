@@ -1,6 +1,6 @@
 var AWS = require('aws-sdk'); 
 var util = require('util');
-var key = require('./key');
+var key = require('./key-AWS');
 var config = require('./configs/config.json');
 
 //configure AWS
