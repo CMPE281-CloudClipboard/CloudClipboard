@@ -73,25 +73,12 @@ function indexCtrl($scope, $cookieStore, $window) {
 }
 
 
-//
-//
-// indexAngularApp.controller('AlertsCtrl', ['$scope', AlertsCtrl]);
-// function AlertsCtrl($scope) {
-//     $scope.alerts = [{
-//         type: 'success',
-//         msg: 'Thanks for visiting! Feel free to create pull requests to improve the dashboard!'
-//     }, {
-//         type: 'danger',
-//         msg: 'Found a bug? Create an issue with as many details as you can.'
-//     }];
-//
-//     $scope.addAlert = function() {
-//         $scope.alerts.push({
-//             msg: 'Another alert!'
-//         });
-//     };
-//
-//     $scope.closeAlert = function(index) {
-//         $scope.alerts.splice(index, 1);
-//     };
-// }
+indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', ClipboardHistoryCtrl]);
+function ClipboardHistoryCtrl($scope) {
+
+  $scope.copyToClipboard = function(){
+    console.log("Copied.");
+    //Do copy to clipboard
+  }
+
+}
