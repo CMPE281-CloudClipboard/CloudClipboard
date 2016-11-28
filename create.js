@@ -13,71 +13,67 @@ AWS.config.update({
 
 var sns = new AWS.SNS();
 var sqs = new AWS.SQS();
-var config = {};
 
-function createTopic(callback) {
+function createTopic(topicName, callback) {
 	sns.createTopic({
-		'Name': 'CloudClipperTopic1'
+		'Name': topicName
 	}, function (err, result) {
 	    if (err !== null) {
 	      console.log(util.inspect(err));
 	      return callback(err);
 	    }
-	    console.log(util.inspect(result));
-	    config.TopicArn = result.TopicArn;
-	    callback();
+	    //console.log(util.inspect(result));
+	    callback(null, result.TopicArn);
 	});
 }
 
-function createQueue(callback) {
+function createQueue(queueName, callback) {
 	sqs.createQueue({
-		'QueueName': 'CloudClipperQueue1'
+		'QueueName': queueName
 	}, function (err, result) {
 	    if (err !== null) {
 	      console.log(util.inspect(err));
 	      return callback(err);
 	    }
-	    console.log(util.inspect(result));
-	    config.QueueUrl = result.QueueUrl;
-	    callback();
+	    //console.log(util.inspect(result));
+	    callback(null, result.QueueUrl);
 	});
 }
 
-function getQueueAttr(callback) {
+function getQueueAttr(queueURL, callback) {
 	sqs.getQueueAttributes({
-		QueueUrl: config.QueueUrl,
+		QueueUrl: queueURL,
 		AttributeNames: ["QueueArn"]
 	}, function (err, result) {
 	    if (err !== null) {
 	      console.log(util.inspect(err));
 	      return callback(err);
 	    }
-	    console.log(util.inspect(result));
-	    config.QueueArn = result.Attributes.QueueArn;
-	    callback();
+	    //console.log(util.inspect(result));
+	    callback(null, result.Attributes.QueueArn);
 	});
 }
 
 
-function snsSubscribe(callback) {
+function snsSubscribe(topicArn, queueArn, callback) {
 	sns.subscribe({
-		'TopicArn': config.TopicArn,
+		'TopicArn': topicArn,
 		'Protocol': 'sqs',
-		'Endpoint': config.QueueArn
+		'Endpoint': queueArn
 	}, function (err, result) {
 		if (err !== null) {
 			console.log(util.inspect(err));
 			return callback(err);
 		}
-		console.log(util.inspect(result));
-		callback();
+		//console.log(util.inspect(result));
+		callback(null, result);
 	});
 }
 
-function setQueueAttr(callback) {
-	var queueUrl = config.QueueUrl;
-	var topicArn = config.TopicArn;
-	var sqsArn = config.QueueArn;
+function setQueueAttr(queueURL, topicArn, queueArn, callback) {
+	var queueUrl = queueURL;
+	var topicArn = topicArn;
+	var sqsArn = queueArn;
 	var attributes = {
 	    "Version": "2008-10-17",
 	    "Id": sqsArn + "/SQSDefaultPolicy",
@@ -107,12 +103,12 @@ function setQueueAttr(callback) {
 			console.log(util.inspect(err));
 			return callback(err);
 		}
-		console.log(util.inspect(result));
-		callback();
+		//console.log(util.inspect(result));
+		callback(null, result);
 	});
 }
 
-function writeConfigFile(callback) {
+function writeConfigFile(config, callback) {
 	fs.writeFile('./configs/config.json', JSON.stringify(config, null, 4), function(err) {
     if(err) {
       return callback(err);
@@ -121,4 +117,4 @@ function writeConfigFile(callback) {
     callback();
   }); 
 }
-async.series([createTopic, createQueue, getQueueAttr, snsSubscribe, setQueueAttr, writeConfigFile]);
+//async.series([createTopic, createQueue, getQueueAttr, snsSubscribe, setQueueAttr, writeConfigFile]);
