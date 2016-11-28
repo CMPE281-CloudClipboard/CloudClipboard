@@ -1,5 +1,6 @@
 "use strict";
 var mq_client = require('../rpc/client');
+var loginController = require('./copyCtrl');
 
 //-----function to create JSON for alarm data -------------//
 exports.doLogin = function(req, res){
@@ -19,6 +20,10 @@ exports.doLogin = function(req, res){
 
 			if(results.userDetails.Item.password == password){
 				console.log("Passwords matched");
+				req.clipBoardSession.email = results.userDetails.Item.email;
+				loginController.email = req.clipBoardSession.email;
+				req.clipBoardSession.fname = results.userDetails.Item.first_name;
+				req.clipBoardSession.lname = results.userDetails.Item.last_name;
 				var json_responses = {"passwordMatched" : true,"results":results.userDetails.Item};
 				console.log(results.userDetails.Item);
 				res.send(json_responses);
@@ -31,3 +36,4 @@ exports.doLogin = function(req, res){
 		}
     });
 }
+
