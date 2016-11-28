@@ -12,18 +12,17 @@ AWS.config.update({
 
 var sns = new AWS.SNS();
 
-function publish(message) {
+function publish(message, callback) {
   var publishParams = { 
-    TopicArn : config.TopicArn,
-    Message: message
+	  TopicArn : config.TopicArn,
+	  Message: message
   };
-
-  sns.publish(publishParams, function(err, data) {
-    process.stdout.write(".");
-    //console.log(data);
+  sns.publish(publishParams, function(err, result) {
+	  if (err !== null) {
+			console.log(util.inspect(err));
+			return callback(err);
+	  }
+	  //console.log(util.inspect(result));
+	  callback(null, result);
   });
-}
-
-for (var i=0; i < 500; i++) {
-  publish("message: " + i);
 }
