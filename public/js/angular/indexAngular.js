@@ -32,8 +32,8 @@ indexAngularApp.config(['$stateProvider', '$urlRouterProvider',
  * Master Controller
  */
 
-indexAngularApp.controller('indexCtrl', ['$scope', '$cookieStore', indexCtrl]);
-function indexCtrl($scope, $cookieStore) {
+indexAngularApp.controller('indexCtrl', ['$scope', '$cookieStore', '$window', indexCtrl]);
+function indexCtrl($scope, $cookieStore, $window) {
     var mobileView = 992;
 
     $scope.getWidth = function() {
@@ -61,6 +61,15 @@ function indexCtrl($scope, $cookieStore) {
     window.onresize = function() {
         $scope.$apply();
     };
+
+
+    //-----------------logout------------------------//
+    $scope.logout = function(){
+      //Do whatever is to be done on logout.
+
+      $window.location.href = "/login"
+    }
+
 }
 
 

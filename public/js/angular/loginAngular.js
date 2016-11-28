@@ -3,30 +3,52 @@ var app = angular.module('LoginApp', [
 ])
 
 .controller('LoginCtrl', function($scope,$http, $window){
-  $scope.invalidLogin = true;
+
+//-----------------login function--------------------------//
+  $scope.invalidLogin = false;
   $scope.login = function(){
-    console.log("Hello this is http request.");
     $http({
       method:"POST",
       url:'/doLogin',
       data : {
-        "username":$scope.username,
+        "username":$scope.email,
         "password":$scope.password
       }
-
-
     }).then(function(res){
-      console.log("Hello this is response");
-      console.log(res);
       if (res.data.passwordMatched) {
         $window.location.href = "/"
       } else if (!res.data.passwordMatched) {
         console.log("invalid login");
-        $scope.invalidLogin = false;
+        $scope.invalidLogin = true;
       }
     }, function(err) { //this will be called on error
       console.log(err);
     });
-
   }
+
+
+  //-----------------signup function--------------------------//
+    $scope.signup = function(){
+
+      $http({
+        method:"POST",
+        url:'/doSignup',
+        data : {
+          "firstname":$scope.firstname,
+          "lastname":$scope.lastname,
+          "username":$scope.email,
+          "password":$scope.password
+        }
+      }).then(function(res){
+        if (res.data.passwordMatched) {
+          $window.location.href = "/"
+        } else if (!res.data.passwordMatched) {
+        }
+      }, function(err) { //this will be called on error
+        console.log(err);
+      });
+    }
+
+
+
 });
