@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "amqp": "^0.2.6",
-    "client-sessions": "^0.7.0"
+    "client-sessions": "^0.7.0",
+    "electron-positioner": "^3.0.0"
   }
 }

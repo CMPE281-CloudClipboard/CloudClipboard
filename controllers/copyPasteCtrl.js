@@ -7,8 +7,9 @@ var sqs_sns_consume = require('../consume');
 exports.email;
 
 exports.copyClipboard = function(copiedText){
-	
+
 	var copyJSON = {"text" : copiedText, "email" : this.email, "fav_flag" : 0};
+
 	sqs_sns_publish.publish(copiedText, function (err, results) {
         if(err)
 		{
@@ -19,7 +20,7 @@ exports.copyClipboard = function(copiedText){
 			console.log("Message has been successfully published");
 		}
     });
-	sqs_sns_consume.getMessages();
+	sqs_sns_consume.processAndDeleteMessages();
 	/*sqs_sns_inititate.createTopic(this.email, function (err, results) {
         if(err)
 		{

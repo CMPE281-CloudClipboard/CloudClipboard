@@ -1,4 +1,4 @@
-var AWS = require('aws-sdk'); 
+var AWS = require('aws-sdk');
 var util = require('util');
 var key = require('./key-AWS');
 var config = require('./configs/config.json');
@@ -7,13 +7,13 @@ var config = require('./configs/config.json');
 AWS.config.update({
 	accessKeyId: key.keyJSON.accessKeyId,  // can omit access key and secret key
 	secretAccessKey: key.keyJSON.secretAccessKey,
-    "region": "us-east-1"   
+    "region": "us-east-1"
 });
 
 var sns = new AWS.SNS();
 
 function publish(message, callback) {
-  var publishParams = { 
+  var publishParams = {
 	  TopicArn : config.TopicArn,
 	  Message: message
   };

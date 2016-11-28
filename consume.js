@@ -17,28 +17,28 @@ var receiveMessageParams = {
 	MaxNumberOfMessages: 10
 };
 
-function getMessages() {
+function processAndDeleteMessages() {
 	sqs.receiveMessage(receiveMessageParams, function(err, data) {
 		if (data && data.Messages && data.Messages.length > 0) {
 			for (var i=0; i < data.Messages.length; i++) {
 				console.log("Message "+i+1+" "+data.Messages[i]);
-				//console.log("do something with the message here...");
+				console.log("Do something with the message here...");
+				console.log("Message processed successfully");
 				// Delete the message when we've successfully processed it
-				/*var deleteMessageParams = {
+				var deleteMessageParams = {
 		        	QueueUrl: config.QueueUrl,
 		        	ReceiptHandle: data.Messages[i].ReceiptHandle
 		      	};
 		      	sqs.deleteMessage(deleteMessageParams, function(err, data) {
-				  	//console.log("deleted message");
-				  	//console.log(data);
-				});*/
+				  	console.log("Message deleted successfully");
+				});
 			}
-			getMessages();
+			processAndDeleteMessages();
 		}else{
 			console.log("Waiting..");
-			setTimeout(getMessages, 100);
+			setTimeout(processAndDeleteMessages, 100);
 		}
 	});
 }
 
-setTimeout(getMessages, 100);
+setTimeout(processAndDeleteMessages, 100);
