@@ -8,7 +8,7 @@ exports.doLogin = function(req, res){
   console.log("In doLogin");
   var username = req.param("username");
   var password = req.param("password");
-  var loginJSON = {"email" : username}; 
+  var loginJSON = {"email" : username};
 
   mq_client.make_request('LOGIN_QUEUE', loginJSON, function (err, results) {
         if(err)
@@ -19,21 +19,18 @@ exports.doLogin = function(req, res){
 		{
 
 			if(results.userDetails.Item.password == password){
-				console.log("Passwords matched");
 				req.clipBoardSession.email = results.userDetails.Item.email;
 				copypasteController.email = req.clipBoardSession.email;
 				req.clipBoardSession.fname = results.userDetails.Item.first_name;
 				req.clipBoardSession.lname = results.userDetails.Item.last_name;
 				var json_responses = {"passwordMatched" : true,"results":results.userDetails.Item};
-				console.log(results.userDetails.Item);
 				res.send(json_responses);
 			}else{
 				console.log("Invalid password");
 				var json_responses = {"passwordMatched" : false};
 				res.send(json_responses);
 			}
-			
+
 		}
     });
 }
-

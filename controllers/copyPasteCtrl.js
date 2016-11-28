@@ -2,22 +2,22 @@
 var mq_client = require('../rpc/client');
 //var sqs_sns_inititate = require('../create');
 //var config = {};
-var sqs_sns_publish = require('../publish');
+//var sqs_sns_publish = require('../publish');
 exports.email;
 
 exports.copyClipboard = function(copiedText){
-	
+
 	var copyJSON = {"text" : copiedText, "email" : this.email, "fav_flag" : 0};
-	sqs_sns_publish.publish(copiedText, function (err, results) {
-        if(err)
-		{
-			throw err;
-		}
-		else
-		{
-			console.log("Message has been successfully published");
-		}
-    });
+	// sqs_sns_publish.publish(copiedText, function (err, results) {
+  //       if(err)
+	// 	{
+	// 		throw err;
+	// 	}
+	// 	else
+	// 	{
+	// 		console.log("Message has been successfully published");
+	// 	}
+  //   });
 	/*sqs_sns_inititate.createTopic(this.email, function (err, results) {
         if(err)
 		{
