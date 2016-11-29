@@ -1,6 +1,4 @@
-var app = angular.module('LoginApp', [
-    'ngMaterial',
-])
+var app = angular.module('LoginApp', ['ngMaterial'])
 
 .controller('LoginCtrl', function($scope,$http, $window){
 

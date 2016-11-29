@@ -76,12 +76,6 @@ function indexCtrl($scope, $cookieStore, $window) {
 indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', ClipboardHistoryCtrl]);
 function ClipboardHistoryCtrl($scope) {
 
-  $scope.copyToClipboard = function(){
-    console.log("Copied.");
-    //Do copy to clipboard
-  }
-
-
   $scope.isFavourite = false;
   $scope.favClass = "glyphicon-star-empty";
   $scope.clickFavourite = function(){

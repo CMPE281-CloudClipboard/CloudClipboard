@@ -37,7 +37,7 @@ var Positioner = require('electron-positioner')
 
 
 app.on('ready', function(){
-const win = new BrowserWindow({width: 450, height: 700, titleBarStyle: 'hidden', frame: false, titleBarStyle: 'hidden',show:false});
+const win = new BrowserWindow({width: 450, height: 700, titleBarStyle: 'hidden', frame: false, titleBarStyle: 'hidden', show:false});
 var positioner = new Positioner(win);
 positioner.move('bottomRight');
 
