@@ -36,12 +36,12 @@ var Positioner = require('electron-positioner')
 
 
 app.on('ready', function(){
-const win = new BrowserWindow({width: 450, height: 700, titleBarStyle: 'hidden', frame: true, titleBarStyle: 'hidden', show:false});
+const win = new BrowserWindow({width: 450, height: 700, titleBarStyle: 'hidden', frame: false, titleBarStyle: 'hidden', show:false});
 var positioner = new Positioner(win);
 positioner.move('bottomRight');
 const tray = new Tray('node-changed.png');
 
-win.loadURL('http://localhost:3000/');
+win.loadURL('http://localhost:3000/login/');
 
 // This is code for Copy paste
   const copy = globalShortcut.register('CommandOrControl+Shift+C', () => {
