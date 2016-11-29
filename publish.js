@@ -12,12 +12,13 @@ AWS.config.update({
 
 var sns = new AWS.SNS();
 
-function publish(message, callback) {
+exports.publish = function(message, callback) {
   var publishParams = { 
 	  TopicArn : config.TopicArn,
 	  Message: message
   };
   sns.publish(publishParams, function(err, result) {
+  	console.log(publishParams.message);
 	  if (err !== null) {
 			console.log(util.inspect(err));
 			return callback(err);
