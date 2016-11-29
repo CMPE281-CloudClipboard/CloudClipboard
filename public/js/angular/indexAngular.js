@@ -81,4 +81,26 @@ function ClipboardHistoryCtrl($scope) {
     //Do copy to clipboard
   }
 
+
+  $scope.isFavourite = false;
+  $scope.favClass = "glyphicon-star-empty";
+  $scope.clickFavourite = function(){
+    //----------UI things----------------//
+    if(!$scope.isFavourite){
+      $scope.favClass = "glyphicon-star";
+      $scope.isFavourite = true;
+    }else{
+      $scope.favClass = "glyphicon-star-empty";
+      $scope.isFavourite = false;
+    }
+    //-----------------------------------//
+    console.log("Favourited.");
+  }
+
+
+  $scope.clickDelete = function(){
+    console.log("Deleted.");
+  }
+
+
 }

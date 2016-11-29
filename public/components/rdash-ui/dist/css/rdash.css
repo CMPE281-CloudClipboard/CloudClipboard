@@ -495,3 +495,22 @@ ul.sidebar .sidebar-list .menu-icon {
 .no-margin{
   margin: 1px !important;
 }
+
+.glyphicon-remove{
+  font-size: 1.2em !important;
+  color: #d32f2f;
+}
+.glyphicon-star-empty{
+  font-size: 1.2em !important;
+  color: #FFC400;
+  margin-right: 3px;
+}
+.row .glyphicon-star{
+  font-size: 1.2em !important;
+  color: #FFC400;
+  margin-right: 3px;
+}
+.glyphicon-copy{
+  font-size: 1.8em !important;
+  text-align: center;
+}
