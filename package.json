@@ -4,22 +4,26 @@
   "description": "Description",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "rebuild": "electron-rebuild -f -w sqlite3"
   },
   "author": "Chirag Patel",
   "license": "Apache-2.0",
   "devDependencies": {
-    "keypress": "^0.2.1",
     "aws-sdk": "2.7.6",
-    "ejs": "^2.4.1",
     "body-parser": "1.15.0",
-    "express": "4.13.4",
+    "cron": "1.1.1",
+    "ejs": "^2.4.1",
     "electron": "1.4.8",
-    "util": "0.10.x",
-    "pubnub" : "4.3.2"
+    "electron-rebuild": "^1.4.0",
+    "express": "4.13.4",
+    "keypress": "^0.2.1",
+    "sqlite3": "3.1.8",
+    "util": "0.10.x"
   },
   "dependencies": {
     "amqp": "^0.2.6",
-    "client-sessions": "^0.7.0"
+    "client-sessions": "^0.7.0",
+    "sqlite3": "^3.1.8"
   }
 }

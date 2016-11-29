@@ -26,6 +26,45 @@ http.listen(expApp.get('port'), function(){
 	console.log('Node-Server listening on port ' + expApp.get('port'));
 });
 
+
+var cron = require('cron');
+var discountCronJob = cron.job("*/10 * * * * *",subscribe);
+discountCronJob.start();
+
+var sqs_sns_consume = require('./consume');
+function subscribe()
+{
+	sqs_sns_consume.getMessages();
+}
+/*
+var PubNub = require('pubnub');
+
+var pubnub = new PubNub({
+    publishKey : 'pub-c-8f2f4abc-3d06-4b2d-87c6-e3d09aa02466',
+    subscribeKey : 'sub-c-48891760-b609-11e6-b37b-02ee2ddab7fe'
+});
+
+pubnub.addListener({
+        status: function(statusEvent) {
+            if (statusEvent.category === "PNConnectedCategory") {
+                //publishSampleMessage();
+            }
+        },
+        message: function(message) {
+            console.log("New Message!!", message);
+        },
+        presence: function(presenceEvent) {
+            // handle presence
+        }
+    }) ;    
+console.log("Subscribing..");
+pubnub.subscribe({
+    channels: ['hello_world'] 
+});
+
+*/
+
+
 var copypasteCtrl = require('./controllers/copyPasteCtrl');
 //------------------Electron-------------------------------------------//
 const {app, Menu, Tray, BrowserWindow, clipboard, globalShortcut,window} = require('electron');
