@@ -1,5 +1,5 @@
 'use strict';
-var indexAngularApp = angular.module('indexAngularApp', ['ui.bootstrap', 'ui.router', 'ngCookies']);
+var indexAngularApp = angular.module('indexAngularApp', ['ui.bootstrap', 'ui.router', 'ngCookies', 'ngclipboard']);
 
 /**
  * Route configuration for the RDash module.
@@ -76,10 +76,11 @@ function indexCtrl($scope, $cookieStore, $window) {
 indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', ClipboardHistoryCtrl]);
 function ClipboardHistoryCtrl($scope) {
 
-  $scope.copyToClipboard = function(){
-    console.log("Copied.");
-    //Do copy to clipboard
-  }
+  $scope.onCopy = function(e) {
+      console.info('Action:', e.action);
+      console.info('Text:', e.text); //use e.text to do anything with the copied text.
+      e.clearSelection();
+  };
 
 
   $scope.isFavourite = false;
