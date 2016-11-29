@@ -27,5 +27,5 @@ module.exports = function(app){
   //-----------------------Handled by Controllers------------------------------------//
   app.post('/doLogin',loginCtrl.doLogin);
 
-
+  app.post('/doSignup',loginCtrl.doSignup);
 };
