@@ -1,6 +1,4 @@
-var app = angular.module('LoginApp', [
-    'ngMaterial',
-])
+var app = angular.module('LoginApp', ['ngMaterial'])
 
 .controller('LoginCtrl', function($scope,$http, $window){
 
@@ -11,7 +9,7 @@ var app = angular.module('LoginApp', [
       method:"POST",
       url:'/doLogin',
       data : {
-        "username":$scope.email,
+        "email":$scope.email,
         "password":$scope.password
       }
     }).then(function(res){
@@ -36,7 +34,7 @@ var app = angular.module('LoginApp', [
         data : {
           "firstname":$scope.firstname,
           "lastname":$scope.lastname,
-          "username":$scope.email,
+          "email":$scope.email,
           "password":$scope.password
         }
       }).then(function(res){
