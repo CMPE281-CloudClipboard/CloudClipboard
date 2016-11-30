@@ -20,6 +20,7 @@ exports.doLogin = function(req, res){
 		{
 
 			if(results.userDetails.Item.password == password){
+				console.log("login results");
 				req.clipBoardSession.email = results.userDetails.Item.email;
 				copypasteController.email = req.clipBoardSession.email;
 				loggedIn = true;
@@ -63,11 +64,12 @@ exports.doSignup = function(req, res){
 		}
 		else
 		{
-			req.clipBoardSession.email = results.userDetails.Item.email;
+			console.log("signup results");
+			req.clipBoardSession.email = email;
 			copypasteController.email = req.clipBoardSession.email;
 			loggedIn = true;
-			req.clipBoardSession.fname = results.userDetails.Item.first_name;
-			req.clipBoardSession.lname = results.userDetails.Item.last_name;
+			req.clipBoardSession.fname = fname;
+			req.clipBoardSession.lname = lname;
 			var json_responses = {"signup" : true};
 			res.send(json_responses);
 		}

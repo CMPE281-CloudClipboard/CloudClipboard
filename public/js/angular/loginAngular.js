@@ -13,6 +13,7 @@ var app = angular.module('LoginApp', ['ngMaterial'])
         "password":$scope.password
       }
     }).then(function(res){
+      console.log("login angular");
       if (res.data.passwordMatched) {
         $window.location.href = "/"
       } else if (!res.data.passwordMatched) {
@@ -38,10 +39,8 @@ var app = angular.module('LoginApp', ['ngMaterial'])
           "password":$scope.password
         }
       }).then(function(res){
-        if (res.data.passwordMatched) {
+          console.log("signup angular");
           $window.location.href = "/"
-        } else if (!res.data.passwordMatched) {
-        }
       }, function(err) { //this will be called on error
         console.log(err);
       });
