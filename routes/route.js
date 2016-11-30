@@ -1,6 +1,7 @@
 "use strict";
 
 var loginCtrl = require('../controllers/loginCtrl');
+var copyPasteCtrl = require('../controllers/copyPasteCtrl');
 
 module.exports = function(app){
 
@@ -26,6 +27,9 @@ module.exports = function(app){
 
   //-----------------------Handled by Controllers------------------------------------//
   app.post('/doLogin',loginCtrl.doLogin);
-
   app.post('/doSignup',loginCtrl.doSignup);
+  app.get('/getHistory',copyPasteCtrl.getHistory);
+  app.get('/getFav',copyPasteCtrl.getFav);
+  app.post('/deleteHistory',copyPasteCtrl.deleteHistory);
+  app.post('/favHistory',copyPasteCtrl.favHistory);
 };
