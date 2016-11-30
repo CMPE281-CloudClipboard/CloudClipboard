@@ -1,6 +1,10 @@
 "use strict";
 var mq_client = require('../rpc/client');
 var copypasteController = require('./copyPasteCtrl');
+var config = {};
+
+// SNS-SQS
+var sqs_sns_inititate = require('../create');
 
 //-----function to create JSON for alarm data -------------//
 var loggedIn = false;
@@ -57,6 +61,8 @@ exports.doSignup = function(req, res){
 	};
 	console.log(signupJSON);
 
+
+
 	mq_client.make_request('SIGNUP_QUEUE', signupJSON, function (err, results) {
         if(err)
 		{
@@ -74,4 +80,78 @@ exports.doSignup = function(req, res){
 			res.send(json_responses);
 		}
     });
+
+
+	var queueName = email.replace('@','').replace('.','');
+
+	// SNS - SQS Code
+	sqs_sns_inititate.createTopic(queueName, function (err, results) {
+        if(err)
+		{
+			throw err;
+		}
+		else
+		{
+			config.TopicArn = results;
+			console.log("Topic created");
+			sqs_sns_inititate.createQueue(queueName, function (err, results) {
+		        if(err)
+				{
+					throw err;
+				}
+				else
+				{
+					config.QueueUrl = results;
+					console.log("URL:"+results);
+					console.log("Queue created");
+					sqs_sns_inititate.getQueueAttr(config.QueueUrl, function (err, results) {
+				        if(err)
+						{
+							throw err;
+						}
+						else
+						{
+							config.QueueArn = results;
+							console.log("Fetched queue attributes");
+							sqs_sns_inititate.snsSubscribe(config.TopicArn, config.QueueArn, function (err, results) {
+						        if(err)
+								{
+									throw err;
+								}
+								else
+								{
+									console.log("Successfully subscribed");
+
+								}
+						    });
+
+
+						    sqs_sns_inititate.setQueueAttr(config.QueueUrl, config.TopicArn, config.QueueArn, function (err, results) {
+						        if(err)
+								{
+									throw err;
+								}
+								else
+								{
+									console.log("Queue attributes set successfully");
+									sqs_sns_inititate.writeConfigFile(config, function (err, results) {
+								        if(err)
+										{
+											throw err;
+										}
+								    });
+
+								}
+						    });
+						}
+				    });
+				}
+		    });
+		}
+    });
+	
+	
+	
+	
+	
 }
