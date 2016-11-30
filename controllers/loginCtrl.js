@@ -1,6 +1,7 @@
 "use strict";
 var mq_client = require('../rpc/client');
 var copypasteController = require('./copyPasteCtrl');
+var mac = require('getmac');
 var config = {};
 
 // SNS-SQS
@@ -25,6 +26,24 @@ exports.doLogin = function(req, res){
 
 			if(results.userDetails.Item.password == password){
 				console.log("login results");
+				mac.getMac(function(err,macAddress){
+   					if (err)  throw err
+    				console.log(macAddress)
+					var macJSON = {
+						"email_mac" : email + macAddress,
+						"email" : email,
+						"mac" : macAddress
+					};
+				mq_client.make_request('MAC_QUEUE', macJSON, function (err, results) {
+					if(err){
+						throw err;
+					}
+					else{
+
+					}
+
+				});
+			});
 				req.clipBoardSession.email = results.userDetails.Item.email;
 				copypasteController.email = req.clipBoardSession.email;
 				loggedIn = true;
