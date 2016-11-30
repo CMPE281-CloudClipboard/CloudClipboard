@@ -1,7 +1,7 @@
 var AWS = require('aws-sdk'); 
 var util = require('util');
 var key = require('./key-AWS');
-var config = require('./configs/config.json');
+//var config = require('./configs/config.json');
 
 //configure AWS
 AWS.config.update({
@@ -13,7 +13,7 @@ AWS.config.update({
 var sqs = new AWS.SQS();
 
 var receiveMessageParams = {
-	QueueUrl: config.QueueUrl,
+	QueueUrl: 'https://sqs.us-east-1.amazonaws.com/803959939392/sdf3sdcomasd',
 	MaxNumberOfMessages: 10
 };
 
