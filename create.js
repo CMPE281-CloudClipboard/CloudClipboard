@@ -13,12 +13,12 @@ AWS.config.update({
 var sns = new AWS.SNS();
 var sqs = new AWS.SQS();
 
-function createTopic(topicName, callback) {
+exports.createTopic = function (topicName, callback) {
 	sns.createTopic({
 		'Name': topicName
 	}, function (err, result) {
 	    if (err !== null) {
-	      console.log(util.inspect(err));
+	      //console.log(util.inspect(err));
 	      return callback(err);
 	    }
 	    //console.log(util.inspect(result));
@@ -26,7 +26,7 @@ function createTopic(topicName, callback) {
 	});
 }
 
-function createQueue(queueName, callback) {
+exports.createQueue = function (queueName, callback) {
 	sqs.createQueue({
 		'QueueName': queueName
 	}, function (err, result) {
@@ -34,18 +34,20 @@ function createQueue(queueName, callback) {
 	      console.log(util.inspect(err));
 	      return callback(err);
 	    }
+	    else{
 	    //console.log(util.inspect(result));
 	    callback(null, result.QueueUrl);
+		}
 	});
 }
 
-function getQueueAttr(queueURL, callback) {
+exports.getQueueAttr = function(queueURL, callback) {
 	sqs.getQueueAttributes({
 		QueueUrl: queueURL,
 		AttributeNames: ["QueueArn"]
 	}, function (err, result) {
 	    if (err !== null) {
-	      console.log(util.inspect(err));
+	      //console.log(util.inspect(err));
 	      return callback(err);
 	    }
 	    //console.log(util.inspect(result));
@@ -54,7 +56,7 @@ function getQueueAttr(queueURL, callback) {
 }
 
 
-function snsSubscribe(topicArn, queueArn, callback) {
+exports.snsSubscribe = function(topicArn, queueArn, callback) {
 	sns.subscribe({
 		'TopicArn': topicArn,
 		'Protocol': 'sqs',
@@ -69,7 +71,7 @@ function snsSubscribe(topicArn, queueArn, callback) {
 	});
 }
 
-function setQueueAttr(queueURL, topicArn, queueArn, callback) {
+exports.setQueueAttr = function(queueURL, topicArn, queueArn, callback) {
 	var queueUrl = queueURL;
 	var topicArn = topicArn;
 	var sqsArn = queueArn;
@@ -107,7 +109,7 @@ function setQueueAttr(queueURL, topicArn, queueArn, callback) {
 	});
 }
 
-function writeConfigFile(config, callback) {
+exports.writeConfigFile = function (config, callback) {
 	fs.writeFile('./configs/config.json', JSON.stringify(config, null, 4), function(err) {
     if(err) {
       return callback(err);
