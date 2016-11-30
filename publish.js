@@ -14,7 +14,7 @@ var sns = new AWS.SNS();
 
 exports.publish = function(message, callback) {
   var publishParams = { 
-	  TopicArn : config.TopicArn,
+	  TopicArn : 'arn:aws:sns:us-east-1:803959939392:demo',
 	  Message: message
   };
   sns.publish(publishParams, function(err, result) {
