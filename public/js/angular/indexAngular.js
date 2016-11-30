@@ -73,28 +73,127 @@ function indexCtrl($scope, $cookieStore, $window) {
 }
 
 
-indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', ClipboardHistoryCtrl]);
-function ClipboardHistoryCtrl($scope) {
+indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', '$http', ClipboardHistoryCtrl]);
+function ClipboardHistoryCtrl($scope, $http) {
+  $scope.historyArray = [];
+  $scope.loadHistory = function(){
+    $http({
+      method:"GET",
+      url:'/getHistory'
+    }).then(function(res){
+      if (res.data) {
+        $scope.historyArray = res.data;
+      } else if (!res.data) {
+      }
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
+  };
+  $scope.loadHistory();
 
+  //--------Favourite----------------//
   $scope.isFavourite = false;
-  $scope.favClass = "glyphicon-star-empty";
-  $scope.clickFavourite = function(){
-    //----------UI things----------------//
-    if(!$scope.isFavourite){
-      $scope.favClass = "glyphicon-star";
-      $scope.isFavourite = true;
-    }else{
-      $scope.favClass = "glyphicon-star-empty";
-      $scope.isFavourite = false;
+  $scope.clickFavourite = function(timestamp, favClass){
+    var favflag = 0;
+    if(favClass == "glyphicon-star-empty"){
+      favflag = 1
     }
-    //-----------------------------------//
-    console.log("Favourited.");
+    $http({
+      method:"POST",
+      url:'/favHistory',
+      data:{
+        "timestamp" : timestamp,
+        "favflag" : favflag
+      }
+    }).then(function(res){
+      if (res.status == 200) {
+        $scope.loadHistory();
+      } else {
+        console.log(res.status);
+      }
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
   }
 
+  $scope.clickDelete = function(timestamp){
+    $http({
+      method:"POST",
+      url:'/deleteHistory',
+      data:{
+        "timestamp" : timestamp
+      }
+    }).then(function(res){
+      if (res.status == 200) {
+        $scope.loadHistory();
+      } else {
+        console.log(res.status);
+      }
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
+  }
+}
 
-  $scope.clickDelete = function(){
-    console.log("Deleted.");
+
+indexAngularApp.controller('FavouriteCtrl', ['$scope', '$http', FavouriteCtrl]);
+function FavouriteCtrl($scope, $http) {
+  $scope.historyArray = [];
+  $scope.loadFav = function(){
+    $http({
+      method:"GET",
+      url:'/getFav'
+    }).then(function(res){
+      if (res.data) {
+        $scope.historyArray = res.data;
+      } else if (!res.data) {
+      }
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
+  };
+  $scope.loadFav();
+
+  //--------Favourite----------------//
+  $scope.isFavourite = false;
+  $scope.clickFavourite = function(timestamp, favClass){
+    var favflag = 0;
+    if(favClass == "glyphicon-star-empty"){
+      favflag = 1
+    }
+    $http({
+      method:"POST",
+      url:'/favHistory',
+      data:{
+        "timestamp" : timestamp,
+        "favflag" : favflag
+      }
+    }).then(function(res){
+      if (res.status == 200) {
+        $scope.loadFav();
+      } else {
+        console.log(res.status);
+      }
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
   }
 
-
+  $scope.clickDelete = function(timestamp){
+    $http({
+      method:"POST",
+      url:'/deleteHistory',
+      data:{
+        "timestamp" : timestamp
+      }
+    }).then(function(res){
+      if (res.status == 200) {
+        $scope.loadFav();
+      } else {
+        console.log(res.status);
+      }
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
+  }
 }

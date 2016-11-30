@@ -58,10 +58,10 @@ pubnub.addListener({
         presence: function(presenceEvent) {
             // handle presence
         }
-    }) ;    
+    }) ;
 console.log("Subscribing..");
 pubnub.subscribe({
-    channels: ['hello_world'] 
+    channels: ['hello_world']
 });
 
 */
@@ -93,22 +93,19 @@ win.loadURL('http://localhost:3000/login/');
   		var temp = clipboard.readText();
     	copypasteCtrl.copyClipboard(temp);
   	}
-    
+
 
     // Code to sync things goes here
   });
 
 // This is code for Copy paste
   const cut = globalShortcut.register('CommandOrControl+Shift+X', () => {
-    console.log('CommandOrControl+X is pressed');
-    // Code to sync things goes here
+    
   });
 
 // This is code for Copy paste
   const paste = globalShortcut.register('CommandOrControl+Shift+V', () => {
-    console.log('CommandOrControl+V is pressed');
 
-    // Code to sync things goes here
   });
 
 
