@@ -266,14 +266,14 @@ div.input-mask {
  * Sidebar
  */
 #sidebar-wrapper {
-  background: #30426a;
+  background: #09475a;
 }
 ul.sidebar .sidebar-main a,
 .sidebar-footer,
 ul.sidebar .sidebar-list a:hover,
 #page-wrapper:not(.open) ul.sidebar .sidebar-title.separator {
   /* Sidebar header and footer color */
-  background: #2d3e63;
+  background: #062a35;
 }
 ul.sidebar {
   position: absolute;
@@ -513,4 +513,8 @@ ul.sidebar .sidebar-list .menu-icon {
 .glyphicon-copy{
   font-size: 1.8em !important;
   text-align: center;
+}
+
+.copy-text{
+  font-size: 15px !important;
 }
