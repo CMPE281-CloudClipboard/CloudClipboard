@@ -180,7 +180,7 @@ fabric.properties
 
 # *.iml
 # modules.xml
-# .idea/misc.xml 
+# .idea/misc.xml
 # *.ipr
 
 
@@ -247,3 +247,7 @@ Temporary Items
 
 # AWS key file
 key-AWS.js
+
+
+#sqlite db file
+temp.db

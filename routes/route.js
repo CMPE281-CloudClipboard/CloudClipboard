@@ -18,6 +18,9 @@ module.exports = function(app){
   app.get('/clipboardhistory', function(req, res){
     res.render('templates/clipboardhistory', {});
   });
+  app.get('/search', function(req, res){
+    res.render('templates/search', {});
+  });
   app.get('/favourites', function(req, res){
     res.render('templates/favourites', {});
   });

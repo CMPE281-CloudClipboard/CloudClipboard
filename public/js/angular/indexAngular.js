@@ -20,6 +20,10 @@ indexAngularApp.config(['$stateProvider', '$urlRouterProvider',
                 url: '/clipboardhistory',
                 templateUrl: '/clipboardhistory'
             })
+            .state('search', {
+                url: '/search',
+                templateUrl: '/search'
+            })
             .state('favourites', {
                 url: '/favourites',
                 templateUrl: '/favourites'
@@ -35,7 +39,7 @@ indexAngularApp.config(['$stateProvider', '$urlRouterProvider',
 indexAngularApp.controller('indexCtrl', ['$scope', '$cookieStore', '$window', indexCtrl]);
 function indexCtrl($scope, $cookieStore, $window) {
     var mobileView = 992;
-
+    $scope.title = "Recent Clipboard Entries";
     $scope.getWidth = function() {
         return window.innerWidth;
     };
