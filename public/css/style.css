@@ -6,3 +6,7 @@
 .stretch input  {
   width: 100%
 }
+
+.bc-color{
+  background-color: #062a35 !important;
+}

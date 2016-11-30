@@ -1,0 +1,33 @@
+<div class="row" data-ng-controller="ClipboardHistoryCtrl">
+  <div class="col-xs-12 no-padding no-margin">
+    <rd-widget>
+        <rd-widget-header icon="fa-users" title="Users">
+            <input type="text" ng-model="searchText" placeholder="Search" class="form-control input-sm"/>
+        </rd-widget-header>
+    </rd-widget>
+    <div class="row"></br></div>
+    <div class="panel panel-default">
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="text in historyArray | orderBy:'-timestamp'| filter:searchText">
+          <div class="row">
+            <div class="col-xs-9">
+              <h4 class="no-padding no-margin">{{text.text}}</h4>
+              <h6>{{text.duration}}</h6>
+            </div>
+            <div class="col-xs-3">
+              <div class="row no-padding no-margin">
+                <center>
+                  <a href="#" ng-click="clickDelete(text.timestamp)"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                  <a href="#" ng-click="clickFavourite(text.timestamp, text.favClass)"><span class="glyphicon pull-right" ng-class="text.favClass"></span></a>
+                </center>
+              </div>
+              <div class="row no-padding no-margin">
+                <button class="btn btn-sm pull-right" data-clipboard-text="{{text.text}}"><img src="images/clippy.svg"></img></button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
