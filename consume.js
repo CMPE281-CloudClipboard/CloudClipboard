@@ -1,6 +1,8 @@
 var AWS = require('aws-sdk'); 
 var util = require('util');
 var key = require('./key-AWS');
+var copyPasteCtrl = require('./controllers/copyPasteCtrl');
+var sqlite3 = require('sqlite3').verbose();
 //var config = require('./configs/config.json');
 
 //configure AWS
@@ -12,31 +14,40 @@ AWS.config.update({
 
 var sqs = new AWS.SQS();
 
-var receiveMessageParams = {
-	QueueUrl: 'https://sqs.us-east-1.amazonaws.com/803959939392/sdf3sdcomasd',
-	MaxNumberOfMessages: 10
-};
-
-exports.getMessages = function(){
+exports.getMessages = function(queueUrl){
+	var receiveMessageParams = {
+		QueueUrl : queueUrl,
+		MaxNumberOfMessages: 10
+	};
 	sqs.receiveMessage(receiveMessageParams, function(err, data) {
 		if (data && data.Messages && data.Messages.length > 0) {
 			for (var i=0; i < data.Messages.length; i++) {
-				console.log("Message "+i+1+" "+JSON.stringify(data.Messages[i]));
-				//console.log("do something with the message here...");
-				// Delete the message when we've successfully processed it
+
+				var textMessage = JSON.parse(data.Messages[i].Body).Message;
+				console.log('textMessage:' + textMessage);
+				var date = new Date();
+  				var email_ts = copyPasteCtrl.email + date;
+
+				var db = new sqlite3.Database('temp.db');
+				db.serialize(function() {
+				  
+				  var stmt = db.prepare("INSERT INTO CLIPBOARD_HISTORY VALUES (?,?,?,?,?)");
+			      stmt.run(email_ts,date,textMessage,copyPasteCtrl.email,0);
+				  stmt.finalize();
+
+				});
+
+				db.close();
 				var deleteMessageParams = {
-		        	QueueUrl: config.QueueUrl,
+		        	QueueUrl: queueUrl,
 		        	ReceiptHandle: data.Messages[i].ReceiptHandle
 		      	};
 		      	sqs.deleteMessage(deleteMessageParams, function(err, data) {
 				  	console.log("deleted message");
-				  	console.log(data);
 				});
 			}
-			//getMessages();
 		}else{
 			console.log("Waiting..");
-			//setTimeout(getMessages, 100);
 		}
 	});
 };

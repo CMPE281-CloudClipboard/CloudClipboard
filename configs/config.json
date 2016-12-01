@@ -1,5 +1,5 @@
 {
-    "TopicArn": "arn:aws:sns:us-east-1:803959939392:kbmgailcom",
-    "QueueUrl": "https://sqs.us-east-1.amazonaws.com/803959939392/kbmgailcom",
-    "QueueArn": "arn:aws:sqs:us-east-1:803959939392:kbmgailcom"
+    "TopicArn": "arn:aws:sns:us-east-1:803959939392:cpatelgmailcom",
+    "QueueUrl": "https://sqs.us-east-1.amazonaws.com/803959939392/cpatelgmailcom",
+    "QueueArn": "arn:aws:sqs:us-east-1:803959939392:cpatelgmailcom"
 }

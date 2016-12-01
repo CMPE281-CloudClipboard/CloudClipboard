@@ -28,44 +28,11 @@ http.listen(expApp.get('port'), function(){
 });
 var loginCtrl = require('./controllers/loginCtrl');
 
-
-var cron = require('cron');
-var discountCronJob = cron.job("*/10 * * * * *",subscribe);
-discountCronJob.start();
-
 var sqs_sns_consume = require('./consume');
-function subscribe()
-{
-	sqs_sns_consume.getMessages();
-}
-/*
-var PubNub = require('pubnub');
 
-var pubnub = new PubNub({
-    publishKey : 'pub-c-8f2f4abc-3d06-4b2d-87c6-e3d09aa02466',
-    subscribeKey : 'sub-c-48891760-b609-11e6-b37b-02ee2ddab7fe'
-});
-
-pubnub.addListener({
-        status: function(statusEvent) {
-            if (statusEvent.category === "PNConnectedCategory") {
-                //publishSampleMessage();
-            }
-        },
-        message: function(message) {
-            console.log("New Message!!", message);
-        },
-        presence: function(presenceEvent) {
-            // handle presence
-        }
-    }) ;
-console.log("Subscribing..");
-pubnub.subscribe({
-    channels: ['hello_world']
-});
-
-*/
-
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('temp.db');
+db.run("CREATE TABLE if not exists CLIPBOARD_HISTORY (EMAIL_TIMESTAMP TEXT, TIMESTAMP DATETIME, TEXT TEXT,EMAIL TEXT,FAV_FLAG INT)");
 
 var copypasteCtrl = require('./controllers/copyPasteCtrl');
 
