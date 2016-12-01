@@ -79,20 +79,7 @@ exports.doSignup = function(req, res){
         "fav_flag" : 0
 	};
 	console.log(signupJSON);
-	mac.getMac(function(err,macAddress){
-   					if (err)  throw err
-    				console.log(macAddress)
-					var macJSON = {
-						"email_mac" : email + macAddress,
-						"email" : email,
-						"mac" : macAddress
-					};
-
-	var msgJSON = {
-		"signupJSON" : signupJSON,
-		"macJSON" : macJSON
-	}
-	mq_client.make_request('SIGNUP_QUEUE', msgJSON, function (err, results) {
+	mq_client.make_request('SIGNUP_QUEUE', signupJSON, function (err, results) {
         if(err)
 		{
 			throw err;
@@ -100,16 +87,35 @@ exports.doSignup = function(req, res){
 		else
 		{
 			console.log("signup results");
-			req.clipBoardSession.email = email;
-			copypasteController.email = req.clipBoardSession.email;
-			loggedIn = true;
-			req.clipBoardSession.fname = fname;
-			req.clipBoardSession.lname = lname;
-			var json_responses = {"signup" : true};
-			res.send(json_responses);
+			mac.getMac(function(err,macAddress){
+   					if (err)  throw err
+    				console.log(macAddress)
+					var macJSON = {
+						"email_mac" : email + macAddress,
+						"email" : email,
+						"mac" : macAddress
+					};
+					mq_client.make_request('MAC_QUEUE', macJSON, function (err, results) {
+					if(err){
+						throw err;
+					}
+					else{
+						console.log(results);
+						req.clipBoardSession.email = email;
+						copypasteController.email = req.clipBoardSession.email;
+						loggedIn = true;
+						req.clipBoardSession.fname = fname;
+						req.clipBoardSession.lname = lname;
+						var json_responses = {"signup" : true};
+						res.send(json_responses);
+					}
+
+				});
+			});
+			
 		}
     });
-});
+
 
 	var queueName = email.replace('@','').replace('.','');
 
