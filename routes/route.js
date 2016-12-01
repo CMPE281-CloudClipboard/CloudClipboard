@@ -35,4 +35,5 @@ module.exports = function(app){
   app.get('/getFav',copyPasteCtrl.getFav);
   app.post('/deleteHistory',copyPasteCtrl.deleteHistory);
   app.post('/favHistory',copyPasteCtrl.favHistory);
+  app.post('/doLogout',loginCtrl.doLogout);
 };
