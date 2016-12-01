@@ -36,8 +36,8 @@ indexAngularApp.config(['$stateProvider', '$urlRouterProvider',
  * Master Controller
  */
 
-indexAngularApp.controller('indexCtrl', ['$scope', '$cookieStore', '$window', indexCtrl]);
-function indexCtrl($scope, $cookieStore, $window) {
+indexAngularApp.controller('indexCtrl', ['$scope','$http', '$cookieStore', '$window', indexCtrl]);
+function indexCtrl($scope,$http, $cookieStore, $window) {
     var mobileView = 992;
     $scope.title = "Recent Clipboard Entries";
     $scope.getWidth = function() {
@@ -70,8 +70,20 @@ function indexCtrl($scope, $cookieStore, $window) {
     //-----------------logout------------------------//
     $scope.logout = function(){
       //Do whatever is to be done on logout.
+      $http({
+      method:"POST",
+      url:'/doLogout',
+      data:{
 
+      }
+    }).then(function(res){
+      console.log("Logged out");
       $window.location.href = "/login"
+      
+    }, function(err) { //this will be called on error
+      console.log(err);
+    });
+      
     }
 
 }

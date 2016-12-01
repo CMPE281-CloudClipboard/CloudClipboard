@@ -85,6 +85,15 @@ exports.getLoggedInFlag = function(){
 	return loggedIn;
 }
 
+exports.doLogout = function(req,res){
+	console.log("in logout");
+  	req.clipBoardSession.destroy();
+  	req.clipBoardSession.reset();
+  	console.log(req.clipBoardSession.email);
+  	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  	res.status(200).send();
+}
+
 exports.doSignup = function(req, res){
 	var email = req.param("email");
 	var pwd = req.param("password");
