@@ -26,6 +26,11 @@ exports.doLogin = function(req, res){
 
 			if(results.userDetails.Item.password == password){
 				console.log("login results");
+				req.clipBoardSession.email = results.userDetails.Item.email;
+				copypasteController.email = req.clipBoardSession.email;
+				loggedIn = true;
+				req.clipBoardSession.fname = results.userDetails.Item.first_name;
+				req.clipBoardSession.lname = results.userDetails.Item.last_name;
 				mac.getMac(function(err,macAddress){
    					if (err)  throw err
     				console.log(macAddress)
@@ -39,18 +44,15 @@ exports.doLogin = function(req, res){
 						throw err;
 					}
 					else{
-
+						console.log("***");
+						console.log(results);
+						var json_responses = {"passwordMatched" : true,"results":results.userDetails.Item};
+						res.send(json_responses);
 					}
 
 				});
 			});
-				req.clipBoardSession.email = results.userDetails.Item.email;
-				copypasteController.email = req.clipBoardSession.email;
-				loggedIn = true;
-				req.clipBoardSession.fname = results.userDetails.Item.first_name;
-				req.clipBoardSession.lname = results.userDetails.Item.last_name;
-				var json_responses = {"passwordMatched" : true,"results":results.userDetails.Item};
-				res.send(json_responses);
+				
 			}else{
 				console.log("Invalid password");
 				var json_responses = {"passwordMatched" : false};
