@@ -1,6 +1,6 @@
 
 var amqp = require('amqp');
-var connection = amqp.createConnection({host: 'MQLB-845752088.us-west-2.elb.amazonaws.com'
+/*var connection = amqp.createConnection({host: 'MQLB-845752088.us-west-2.elb.amazonaws.com'
                                             , port: 5672
                                             , login: 'jay'
                                             , password: 'jay'
@@ -9,9 +9,9 @@ var connection = amqp.createConnection({host: 'MQLB-845752088.us-west-2.elb.amaz
                                             , vhost: '/'
                                             , noDelay: true
                                             , ssl: { enabled : false }
-                                        });
+                                        });*/
 
-// var connection = amqp.createConnection({host:'127.0.0.1'});
+var connection = amqp.createConnection({host:'127.0.0.1'});
 var rpc = new (require('./amqprpc'))(connection);
 
 //make request to rabbitmq

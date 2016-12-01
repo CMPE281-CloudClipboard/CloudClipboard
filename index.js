@@ -33,7 +33,6 @@ var sqs_sns_consume = require('./consume');
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('temp.db');
 db.run("CREATE TABLE if not exists CLIPBOARD_HISTORY (EMAIL_TIMESTAMP TEXT, TIMESTAMP DATETIME, TEXT TEXT,EMAIL TEXT,FAV_FLAG INT)");
-
 var copypasteCtrl = require('./controllers/copyPasteCtrl');
 
 //------------------Electron-------------------------------------------//
@@ -49,7 +48,6 @@ var positioner = new Positioner(win);
 positioner.move('bottomRight');
 
 const tray = new Tray('node-changed.png');
-
 win.loadURL('http://localhost:3000/login/');
 
 // This is code for Copy paste
