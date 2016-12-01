@@ -79,10 +79,20 @@ exports.doSignup = function(req, res){
         "fav_flag" : 0
 	};
 	console.log(signupJSON);
+	mac.getMac(function(err,macAddress){
+   					if (err)  throw err
+    				console.log(macAddress)
+					var macJSON = {
+						"email_mac" : email + macAddress,
+						"email" : email,
+						"mac" : macAddress
+					};
 
-
-
-	mq_client.make_request('SIGNUP_QUEUE', signupJSON, function (err, results) {
+	var msgJSON = {
+		"signupJSON" : signupJSON,
+		"macJSON" : macJSON
+	}
+	mq_client.make_request('SIGNUP_QUEUE', msgJSON, function (err, results) {
         if(err)
 		{
 			throw err;
@@ -99,7 +109,7 @@ exports.doSignup = function(req, res){
 			res.send(json_responses);
 		}
     });
-
+});
 
 	var queueName = email.replace('@','').replace('.','');
 
