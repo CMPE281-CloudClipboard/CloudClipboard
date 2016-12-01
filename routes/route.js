@@ -16,13 +16,13 @@ module.exports = function(app){
     res.render('index', {});
   });
   app.get('/clipboardhistory', function(req, res){
-    res.render('templates/clipboardhistory', {});
+    res.render('templates/ClipboardHistory', {});
   });
   app.get('/search', function(req, res){
-    res.render('templates/search', {});
+    res.render('templates/Search', {});
   });
   app.get('/favourites', function(req, res){
-    res.render('templates/favourites', {});
+    res.render('templates/Favourites', {});
   });
 
 
