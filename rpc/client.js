@@ -8,8 +8,18 @@
  * Created by aneri on 07-04-2016.
  */
 var amqp = require('amqp');
+var connection = amqp.createConnection({host: '35.160.207.18'
+                                            , port: 5672
+                                            , login: 'jay'
+                                            , password: 'jay'
+                                            , connectionTimeout: 10000
+                                            , authMechanism: 'AMQPLAIN'
+                                            , vhost: '/'
+                                            , noDelay: true
+                                            , ssl: { enabled : false }
+                                        });
 
-var connection = amqp.createConnection({host:'127.0.0.1'});
+//var connection = amqp.createConnection({host:'127.0.0.1'});
 var rpc = new (require('./amqprpc'))(connection);
 
 //make request to rabbitmq
