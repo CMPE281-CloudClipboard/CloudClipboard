@@ -1,14 +1,15 @@
 "use strict";
 var sqlite3 = require('sqlite3').verbose();
 var moment = require('moment');
-
+var loginCtrl = require('./loginCtrl');
 var mq_client = require('../rpc/client');
 var sqs_sns_publish = require('../publish');
 exports.email;
-
+//var loginCtrl = require('./controllers/loginCtrl');
 exports.copyClipboard = function(copiedText){
 	var copyJSON = {"text" : copiedText, "email" : this.email, "fav_flag" : 0};
  	console.log("copy JSON===>> "+ JSON.stringify(copyJSON));
+ 	
 	sqs_sns_publish.publish(copiedText, function (err, results) {
 		
         if(err)
@@ -40,6 +41,7 @@ exports.copyClipboard = function(copiedText){
 exports.getHistory = function(req, res){
 	var resData = [];
 	var db = new sqlite3.Database('temp.db');
+	console.log(loginCtrl.getEmail());
 	db.serialize(function() {
 		db.all("SELECT TIMESTAMP, TEXT, FAV_FLAG FROM CLIPBOARD_HISTORY", function(err, results) {
 	      if(err){

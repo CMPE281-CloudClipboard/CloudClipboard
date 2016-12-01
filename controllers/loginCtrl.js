@@ -1,6 +1,6 @@
 "use strict";
 var mq_client = require('../rpc/client');
-var copypasteController = require('./copyPasteCtrl');
+//var copypasteController = require('./copyPasteCtrl');
 var sqs_sns_consume = require('../consume');
 var mac = require('getmac');
 var config = {};
@@ -23,6 +23,11 @@ function subscribe()
 
 //-----function to create JSON for alarm data -------------//
 var loggedIn = false;
+var emailLoggedIn="";
+
+exports.getEmail = function(){
+	return emailLoggedIn;
+}
 exports.doLogin = function(req, res){
   var loginSucess = false;
   console.log("In doLogin");
@@ -41,8 +46,9 @@ exports.doLogin = function(req, res){
 			if(results.userDetails.Item.password == password){
 				console.log("login results");
 				req.clipBoardSession.email = results.userDetails.Item.email;
-				copypasteController.email = req.clipBoardSession.email;
+				//copypasteController.email = req.clipBoardSession.email;
 				loggedIn = true;
+				emailLoggedIn = req.clipBoardSession.email;
 				req.clipBoardSession.fname = results.userDetails.Item.first_name;
 				req.clipBoardSession.lname = results.userDetails.Item.last_name;
 				mac.getMac(function(err,macAddress){
@@ -84,6 +90,8 @@ exports.doLogin = function(req, res){
 exports.getLoggedInFlag = function(){
 	return loggedIn;
 }
+
+
 
 exports.doLogout = function(req,res){
 	console.log("in logout");
@@ -131,7 +139,7 @@ exports.doSignup = function(req, res){
 					else{
 						console.log(results);
 						req.clipBoardSession.email = email;
-						copypasteController.email = req.clipBoardSession.email;
+						//copypasteController.email = req.clipBoardSession.email;
 						loggedIn = true;
 						req.clipBoardSession.fname = fname;
 						req.clipBoardSession.lname = lname;
