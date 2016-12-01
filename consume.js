@@ -2,7 +2,9 @@ var AWS = require('aws-sdk');
 var util = require('util');
 var key = require('./key-AWS');
 var copyPasteCtrl = require('./controllers/copyPasteCtrl');
+var index = require('./index');
 var sqlite3 = require('sqlite3').verbose();
+const {clipboard} = require('electron')
 //var config = require('./configs/config.json');
 
 //configure AWS
@@ -38,6 +40,9 @@ exports.getMessages = function(queueUrl){
 				});
 
 				db.close();
+
+				clipboard.writeText(textMessage);
+				console.log("inserted to clipboard");
 				var deleteMessageParams = {
 		        	QueueUrl: queueUrl,
 		        	ReceiptHandle: data.Messages[i].ReceiptHandle
