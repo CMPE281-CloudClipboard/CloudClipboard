@@ -1,11 +1,25 @@
 "use strict";
 var mq_client = require('../rpc/client');
 var copypasteController = require('./copyPasteCtrl');
+var sqs_sns_consume = require('../consume');
 var mac = require('getmac');
 var config = {};
 
 // SNS-SQS
 var sqs_sns_inititate = require('../create');
+
+
+var queueUrl = '';
+
+
+var cron = require('cron');
+var cronJob = cron.job("*/10 * * * * *",subscribe);
+
+function subscribe()
+{
+	sqs_sns_consume.getMessages(queueUrl);
+}
+
 
 //-----function to create JSON for alarm data -------------//
 var loggedIn = false;
@@ -45,7 +59,11 @@ exports.doLogin = function(req, res){
 					}
 					else{
 						console.log("***");
-						console.log(results);
+						//console.log(results);
+						cronJob.stop();
+						queueUrl = results.userDetails.Item.queue_url;
+						cronJob.start();
+
 						var json_responses = {"passwordMatched" : true,"results":results.userDetails.Item};
 						res.send(json_responses);
 					}
