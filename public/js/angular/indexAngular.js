@@ -79,18 +79,18 @@ function indexCtrl($scope,$http, $cookieStore, $window) {
     }).then(function(res){
       console.log("Logged out");
       $window.location.href = "/login"
-      
+
     }, function(err) { //this will be called on error
       console.log(err);
     });
-      
+
     }
 
 }
 
 
-indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', '$http', ClipboardHistoryCtrl]);
-function ClipboardHistoryCtrl($scope, $http) {
+indexAngularApp.controller('ClipboardHistoryCtrl', ['$scope', '$http', '$interval', ClipboardHistoryCtrl]);
+function ClipboardHistoryCtrl($scope, $http, $interval) {
   $scope.historyArray = [];
   $scope.loadHistory = function(){
     $http({
@@ -106,6 +106,9 @@ function ClipboardHistoryCtrl($scope, $http) {
     });
   };
   $scope.loadHistory();
+
+  var loadHistoryFlag = $interval(function(){$scope.loadHistory();}, 3000);
+
 
   //--------Favourite----------------//
   $scope.isFavourite = false;
@@ -149,6 +152,10 @@ function ClipboardHistoryCtrl($scope, $http) {
       console.log(err);
     });
   }
+
+  $scope.$on('$destroy', function() {
+    $interval.cancel(loadHistoryFlag);
+  });
 }
 
 
