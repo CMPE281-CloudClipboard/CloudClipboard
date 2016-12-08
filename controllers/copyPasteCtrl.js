@@ -42,9 +42,8 @@ exports.copyClipboard = function(copiedText){
 exports.getHistory = function(req, res){
 	var resData = [];
 	var db = new sqlite3.Database('temp.db');
-	//console.log(loginCtrl.getEmail());
 	db.serialize(function() {
-		db.all("SELECT TIMESTAMP, TEXT, FAV_FLAG FROM CLIPBOARD_HISTORY", function(err, results) {
+		db.all("SELECT TIMESTAMP, TEXT, FAV_FLAG FROM CLIPBOARD_HISTORY WHERE EMAIL='"+req.clipBoardSession.email+"';", function(err, results) {
 	      if(err){
 					console.log(err);
 				}else{
