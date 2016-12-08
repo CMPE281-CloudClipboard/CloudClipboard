@@ -40,7 +40,7 @@ var app = angular.module('LoginApp', ['ngMaterial'])
         }
       }).then(function(res){
           console.log("signup angular");
-          $window.location.href = "/"
+          $window.location.href = "/login"
       }, function(err) { //this will be called on error
         console.log(err);
       });

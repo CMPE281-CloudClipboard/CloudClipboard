@@ -1,6 +1,6 @@
 "use strict";
 var mq_client = require('../rpc/client');
-//var copypasteController = require('./copyPasteCtrl');
+var copypasteController = require('./copyPasteCtrl');
 var sqs_sns_consume = require('../consume');
 var mac = require('getmac');
 var config = {};
@@ -46,9 +46,9 @@ exports.doLogin = function(req, res){
 			if(results.userDetails.Item.password == password){
 				console.log("login results");
 				req.clipBoardSession.email = results.userDetails.Item.email;
-				//copypasteController.email = req.clipBoardSession.email;
+				copypasteController.email = req.clipBoardSession.email;
 				loggedIn = true;
-				emailLoggedIn = req.clipBoardSession.email;
+				//this.emailLoggedIn = req.clipBoardSession.email;
 				req.clipBoardSession.fname = results.userDetails.Item.first_name;
 				req.clipBoardSession.lname = results.userDetails.Item.last_name;
 				mac.getMac(function(err,macAddress){
@@ -76,7 +76,7 @@ exports.doLogin = function(req, res){
 
 				});
 			});
-				
+
 			}else{
 				console.log("Invalid password");
 				var json_responses = {"passwordMatched" : false};
@@ -138,18 +138,17 @@ exports.doSignup = function(req, res){
 					}
 					else{
 						console.log(results);
-						req.clipBoardSession.email = email;
+						//req.clipBoardSession.email = email;
 						//copypasteController.email = req.clipBoardSession.email;
-						loggedIn = true;
-						req.clipBoardSession.fname = fname;
-						req.clipBoardSession.lname = lname;
-						var json_responses = {"signup" : true};
-						res.send(json_responses);
+						//loggedIn = true;
+						//req.clipBoardSession.fname = fname;
+						//req.clipBoardSession.lname = lname;
+						res.send();
 					}
 
 				});
 			});
-			
+
 		}
     });
 
@@ -221,9 +220,9 @@ exports.doSignup = function(req, res){
 		    });
 		}
     });
-	
-	
-	
-	
-	
+
+
+
+
+
 }
